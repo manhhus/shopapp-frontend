@@ -1,0 +1,37 @@
+.navbar{
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 10px 20px !important;
+    background-color: #1f21ce !important;
+    color: #fff !important;
+    font-family: Georgia, 'Times New Roman', Times, serif !important;
+    font-size: 20px !important;
+    font-style: normal !important;
+}
+.navbar-nav{
+    list-style: none !important;
+    display: flex !important;
+}
+
+.nav-item{
+    margin-right: 20px !important;
+}
+
+.nav-link{
+    text-decoration: none !important;
+    color: #fff !important;
+    font-weight: bold !important;
+    transition: color 0.3s ease !important;
+}
+
+.nav-link:hover{
+    color: #ffcc00 !important;
+    cursor: pointer !important;
+}
+
+.navbar-brand {
+    color: #fff;
+    font-size: 30px !important;
+    margin-left: 20px !important;
+}

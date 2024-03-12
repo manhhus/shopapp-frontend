@@ -1,0 +1,84 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+    <div class="intro-section">
+        <h1> Order</h1>
+        <p> Su dung bootstrap</p>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="product-header">Receiver's infomation</h2>
+            <form>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <input type="text" class="form-control" id="name">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="text" class="form-control" id="email">
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone:</label>
+                    <input type="tel" class="form-control" id="phone">
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <h2 class="product-ordered">Products ordered</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-start">Product</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="product-info">
+                                <img src="https://images.pexels.com/photos/1472443/pexels-photo-1472443.jpeg"
+                                alt="Raspberry Pi 4"
+                                class="product-image">
+                                <span class="product-name">Raspberry Pi 4</span>
+                            </div>
+                        </td>
+                        <td>2</td>
+                        <td>100$</td>
+                        <td>200$</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="product-info">
+                                <img src="https://images.pexels.com/photos/1472443/pexels-photo-1472443.jpeg"
+                                alt="Raspberry Pi 4"
+                                class="product-image">
+                                <span class="product-name">Raspberry Pi 4</span>
+                            </div>
+                        </td>
+                        <td>1</td>
+                        <td>100$</td>
+                        <td>100$</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-start mt-3">
+                <h4 class="header-text text-end">ToTal: 300$</h4>
+                <div class="me-3">
+                    <h4 class="product-header">Enter coupon</h4>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter coupon">
+                        <button class="btn btn-gradient" type="button">Apply</button>
+                    </div>
+                </div>
+                <div class="text-start mt-3">
+                    <button class="btn btn-gradient" type="button">Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

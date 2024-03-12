@@ -1,0 +1,93 @@
+.container {
+    color: white;
+    height: 100vh;
+    margin-top: 50px;
+}
+.login-form {
+    background-color: rgb(32, 32, 148);
+    border-radius: 10px;
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid rgb(12,12,55);
+    align-items: center;
+    justify-content: center;
+}
+.form-control{
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+.login-header {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.divider-nospace {
+    border-top: 1px solid white;
+}
+.password-field {
+    position: relative;
+}
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translate(-50%);
+    color: white;
+    cursor: pointer;
+}
+
+.checkbox-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+.checkbot-text input[type="checkbox"]:checked{
+    border-color: white;
+    
+}
+.form-check-input {
+    margin-right: 5px;
+    cursor: pointer;
+}
+.form-check-label{
+    color: rgb(209, 170, 43);
+}
+.register-link {
+    color: rgb(230, 219, 8);
+    text-decoration: none;
+}
+
+.access-right {
+    margin-top: 20px;
+    width: 100px;
+    color: white;
+    background-color: rgb(32, 32, 148);
+    margin-left: 10px;
+    border: 1px solid rgb(53, 74, 238);
+    cursor: pointer;
+}
+.role-color {
+    margin-top: 36px;
+    color: white;
+}
+.role-container{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.divider {
+    height: 1px;
+    background-color: rgb(243, 165, 42);
+    margin: 20px;
+}
+.login-button {
+    background: linear-gradient(to right, rgb(255,64,180), rgb(126,43,237));
+    color: white;
+    border-radius: 30px;
+    width: 90%;
+    height: 30px;
+    margin: 10px 20px;
+    border: none;
+}

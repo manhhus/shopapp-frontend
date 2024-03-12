@@ -1,0 +1,47 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="login-form mx-auto">
+                <h2 class="login-header">Login</h2>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="text" class="form-control" id="email">
+                    <div class="divider-nospace"></div>
+                </div>
+                <div class="mt-5"></div>
+                <div class="form-group password-field">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" class="form-control" id="password">
+                    <i class="password-toggle fas fa-eye-slash"></i>
+                    <div class="divider-nospace"></div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check checkbox-text">
+                        <span style="display: flex;">
+                            <input type="checkbox" class="form-check-input" id="remember">
+                            <label class="form-check-label text-start" for="remember">
+                                Remember login
+                            </label> 
+                        </span>
+                        <a href="#" class="register-link">Forgot password</a>
+                    </div>
+                </div>
+                <div class="form-group role-container">
+                    <p class="role-color">Choose role: </p>
+                    <select class="form-control access-right">
+                        <option selected disabled>Role login</option>
+                        <option>User</option>
+                        <option>Admin</option>
+                    </select>
+                </div>
+                <button type="button" class="login-button">Login</button>
+                <div class="divider"></div>
+                <p class="text-center">You haven't registered yet? <a href="#" class="register-link">Register now</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>
