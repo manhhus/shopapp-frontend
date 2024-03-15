@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HomeComponent } from './webapp/home/home.component';
-import { NavbarComponent } from './webapp/navbar/navbar.component';
-import { FooterComponent } from './webapp/footer/footer.component';
-import { DetailProductComponent } from './webapp/detail-product/detail-product.component';
-import { OrderComponent } from './webapp/order/order.component';
+import { HomeComponent } from './webapp/components/home/home.component';
+import { NavbarComponent } from './webapp/components/navbar/navbar.component';
+import { FooterComponent } from './webapp/components/footer/footer.component';
+import { DetailProductComponent } from './webapp/components/detail-product/detail-product.component';
+import { OrderComponent } from './webapp/components/order/order.component';
 
 @Component({
   selector: 'app-root',

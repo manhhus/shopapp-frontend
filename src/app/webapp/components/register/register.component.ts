@@ -3,13 +3,11 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { RegisterDTO } from '../../dtos/user/register.dto';
 
-import { Injectable } from '@angular/core';
-@Injectable({
-  providedIn: 'root'
-})
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -26,7 +24,7 @@ export class RegisterComponent {
   address: string;
   isAccepted: boolean;
   dateOfBirth: Date;
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private userService:UserService) {
     this.phone = '';
     this.password = '';
     this.retypePassword = '';
@@ -48,8 +46,7 @@ export class RegisterComponent {
                     `isAccepted: ${this.isAccepted}` + 
                     `dateOfBirth: ${this.dateOfBirth}`;
     // alert(message);
-    const apiUrl = "http://localhost:8088/api/v1/users/register";
-    const registerData = {
+    const registerDTO:RegisterDTO = {
       "fullname": this.fullName,
       "phone_number": this.phone,
       "address": this.address,
@@ -60,10 +57,9 @@ export class RegisterComponent {
       "google_account_id":0,
       "role_id":1
     }
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    this.http.post(apiUrl,registerData,{headers}).subscribe(
+    this.userService.register(registerDTO).subscribe(
       {
-        next: () => {
+        next: (reponse:any) => {
           alert(`Register successfully`);
           this.router.navigate(['/webapp/login']);
         },
@@ -100,5 +96,9 @@ export class RegisterComponent {
         this.registerForm.form.controls['dateOfBirth'].setErrors(null);
       }
     }
+  }
+
+  onLogin() {
+    this.router.navigate(['/webapp/login']);
   }
 }
