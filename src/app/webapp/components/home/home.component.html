@@ -9,7 +9,6 @@
     <div class="search-box">
         <input type="text" class="form-control search-input" placeholder="Search product">
         <select class="form-control product-list">
-            <option selected disabled>List products</option>
             <option>All</option>
             <option>Electronics</option>
             <option>Computers</option>
@@ -17,16 +16,13 @@
         </select>
     </div>
     <div class="row">
-        <div class="col-lg-4 col-md-6">
+        <div class="col-lg-4 col-md-6" *ngFor="let product of products">
             <div class="product-items">
-                <img
-                    src="https://images.pexels.com/photos/1472443/pexels-photo-1472443.jpeg"
-                    alt="Raspberry Pi 4"
-                    class="product-image">
-                <h3 class="product-name">Raspberry Pi 4</h3>
-                <p class="product-description">1.5 GHz 64-bit quad core ARM Cortex-A72 processor, on-board 802.11ac Wi-Fi, Bluetooth 5, full gigabit Ethernet (throughput not limited), two USB 2.0 ports, two USB 3.0 ports, 1, 2, 4, or 8 GB of RAM, and dual-monitor support via a pair of micro HDMI (HDMI Type D) ports for up to 4K resolution</p>
-                <p class="product-warranty">Warranty 12 months</p>
-                <p class="product-price">Price: <del>$200</del> $100</p>
+                <img [src]="product.url" alt="Product Image" class="product-image">
+                <h3 class="product-name">{{product.name}}</h3>
+                <p class="product-description">{{product.description}}</p>
+                <p class="product-warranty">Warranty: 12 months</p>
+                <p class="product-price">Price: <del>{{product.price*2}}$</del> {{product.price}}$</p>
                 <div class="product-rating">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
@@ -41,108 +37,32 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-lg-4 col-md-6">
-            <div class="product-items">
-                <img
-                    src="https://images.pexels.com/photos/1472443/pexels-photo-1472443.jpeg"
-                    alt="Raspberry Pi 4"
-                    class="product-image">
-                <h3 class="product-name">Raspberry Pi 4</h3>
-                <p class="product-description">1.5 GHz 64-bit quad core ARM Cortex-A72 processor, on-board 802.11ac Wi-Fi, Bluetooth 5, full gigabit Ethernet (throughput not limited), two USB 2.0 ports, two USB 3.0 ports, 1, 2, 4, or 8 GB of RAM, and dual-monitor support via a pair of micro HDMI (HDMI Type D) ports for up to 4K resolution</p>
-                <p class="product-warranty">Warranty 12 months</p>
-                <p class="product-price">Price: <del>$200</del> $100</p>
-                <div class="product-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star-half-stroke"></i>
-                </div>
-                <div class="product-action">
-                    <button class="btn btn-primary">Add to cart</button>
-                    <span class="space-button"></span>
-                    <button class="btn btn-success">Buy now</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6">
-            <div class="product-items">
-                <img
-                    src="https://images.pexels.com/photos/4584612/pexels-photo-4584612.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                    alt="Raspberry Pi 4"
-                    class="product-image">
-                <h3 class="product-name">Raspberry Pi 4</h3>
-                <p class="product-description">1.5 GHz 64-bit quad core ARM Cortex-A72 processor, on-board 802.11ac Wi-Fi, Bluetooth 5, full gigabit Ethernet (throughput not limited), two USB 2.0 ports, two USB 3.0 ports, 1, 2, 4, or 8 GB of RAM, and dual-monitor support via a pair of micro HDMI (HDMI Type D) ports for up to 4K resolution</p>
-                <p class="product-warranty">Warranty 12 months</p>
-                <p class="product-price">Price: <del>$200</del> $100</p>
-                <div class="product-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star-half-stroke"></i>
-                </div>
-                <div class="product-action">
-                    <button class="btn btn-primary">Add to cart</button>
-                    <span class="space-button"></span>
-                    <button class="btn btn-success">Buy now</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6">
-            <div class="product-items">
-                <img
-                    src="https://images.pexels.com/photos/1472443/pexels-photo-1472443.jpeg"
-                    alt="Raspberry Pi 4"
-                    class="product-image">
-                <h3 class="product-name">Raspberry Pi 4</h3>
-                <p class="product-description">1.5 GHz 64-bit quad core ARM Cortex-A72 processor, on-board 802.11ac Wi-Fi, Bluetooth 5, full gigabit Ethernet (throughput not limited), two USB 2.0 ports, two USB 3.0 ports, 1, 2, 4, or 8 GB of RAM, and dual-monitor support via a pair of micro HDMI (HDMI Type D) ports for up to 4K resolution</p>
-                <p class="product-warranty">Warranty 12 months</p>
-                <p class="product-price">Price: <del>$200</del> $100</p>
-                <div class="product-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star-half-stroke"></i>
-                </div>
-                <div class="product-action">
-                    <button class="btn btn-primary">Add to cart</button>
-                    <span class="space-button"></span>
-                    <button class="btn btn-success">Buy now</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6">
-            <div class="product-items">
-                <img
-                    src="https://images.pexels.com/photos/1472443/pexels-photo-1472443.jpeg"
-                    alt="Raspberry Pi 4"
-                    class="product-image">
-                <h3 class="product-name">Raspberry Pi 4</h3>
-                <p class="product-description">1.5 GHz 64-bit quad core ARM Cortex-A72 processor, on-board 802.11ac Wi-Fi, Bluetooth 5, full gigabit Ethernet (throughput not limited), two USB 2.0 ports, two USB 3.0 ports, 1, 2, 4, or 8 GB of RAM, and dual-monitor support via a pair of micro HDMI (HDMI Type D) ports for up to 4K resolution</p>
-                <p class="product-warranty">Warranty 12 months</p>
-                <p class="product-price">Price: <del>$200</del> $100</p>
-                <div class="product-rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star-half-stroke"></i>
-                </div>
-                <div class="product-action">
-                    <button class="btn btn-primary">Add to cart</button>
-                    <span class="space-button"></span>
-                    <button class="btn btn-success">Buy now</button>
-                </div>
-            </div>
-        </div>
-
         
     </div>
 </div>
+<div class="pagination-container">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" *ngIf="currentPage > 1">
+                <a class="page-link" (click)="onPageChange(1)">First</a>
+            </li>
+            <li class="page-item" *ngIf="currentPage > 1">
+                <a class="page-link" (click)="onPageChange(currentPage - 1)">Prev</a>
+            </li>
+            <ng-container *ngFor="let page of visiblePages">
+                <li class="page-item" [ngClass]="{'active': page === currentPage}">
+                    <a class="page-link" (click)="onPageChange(page)">{{ page }}</a>
+                </li>
+            </ng-container>
+            
+            <li class="page-item" *ngIf="currentPage < totalPages">
+                <a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a>
+            </li>
+            <li class="page-item" *ngIf="currentPage < totalPages">
+                <a class="page-link" (click)="onPageChange(totalPages)">Last</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
 <app-footer></app-footer>

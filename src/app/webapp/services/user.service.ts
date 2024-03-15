@@ -4,7 +4,6 @@ import { Observable, map } from 'rxjs';
 import { RegisterDTO } from '../dtos/user/register.dto';
 import { LoginDTO } from '../dtos/user/login.dto';
 import { enviroment } from '../enviroments/enviroment';
-import { response } from 'express';
 
 @Injectable({
   providedIn: 'root'
