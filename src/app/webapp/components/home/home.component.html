@@ -7,13 +7,15 @@
     </div>
     <!--search box ben trai, combobox ben phai-->
     <div class="search-box">
-        <input type="text" class="form-control search-input" placeholder="Search product">
-        <select class="form-control product-list">
-            <option>All</option>
-            <option>Electronics</option>
-            <option>Computers</option>
-            <option>Arts $ Crafts</option>
+        <input type="text" class="form-control search-input" placeholder="Search product"
+            placeholder="Search here" [(ngModel)]="keyword">
+        <select class="form-control product-list" [(ngModel)]="selectedCategoryId">
+            <option [value]="0">All</option>
+            <option *ngFor="let category of categories" [value]="category.id"> 
+                {{ category.name }}
+            </option>
         </select>
+        <Button class="btn btn-primary ml-2" (click)="searchProducts()">Search</Button>
     </div>
     <div class="row">
         <div class="col-lg-4 col-md-6" *ngFor="let product of products">

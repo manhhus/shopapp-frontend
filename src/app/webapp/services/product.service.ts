@@ -6,15 +6,21 @@ import { Product } from '../components/models/product';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductSerVice {
-    private aptGetProducts = `${enviroment.apiBaseUrl}/products`;
+export class ProductService {
+    private apiGetProducts = `${enviroment.apiBaseUrl}/products`;
     constructor(private htpp: HttpClient){
     }
 
-    getProducts(page:number, limit:number): Observable<Product[]> {
+    getProducts(keyword: string, selectedCategoryId:number, page:number, limit:number): Observable<Product[]> {
         const params = new HttpParams()
+                            .set('keyword', keyword)
+                            .set('category_id', selectedCategoryId)
                             .set('page', page.toString())
                             .set('limit', limit.toString());
-        return this.htpp.get<Product[]>(this.aptGetProducts, {params});
+        return this.htpp.get<Product[]>(this.apiGetProducts, {params});
+    }
+
+    getDetailProduct(productId:number) {
+      return this.htpp.get(`${enviroment.apiBaseUrl}/products/${productId}`)
     }
  }
