@@ -17,49 +17,24 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
-                        <div class="product-info">
-                            <img src="https://images.pexels.com/photos/1472443/pexels-photo-1472443.jpeg"
-                            alt="Raspberry Pi 4"
-                            class="product-image">
-                            <span class="product-name">Raspberry Pi 4</span>
-                        </div>
-                    </td>
-                    <td>2</td>
-                    <td>100$</td>
-                    <td>200$</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="product-info">
-                            <img src="https://images.pexels.com/photos/1472443/pexels-photo-1472443.jpeg"
-                            alt="Raspberry Pi 4"
-                            class="product-image">
-                            <span class="product-name">Raspberry Pi 4</span>
-                        </div>
-                    </td>
-                    <td>2</td>
-                    <td>100$</td>
-                    <td>200$</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="product-info">
-                            <img src="https://images.pexels.com/photos/1472443/pexels-photo-1472443.jpeg"
-                            alt="Raspberry Pi 4"
-                            class="product-image">
-                            <span class="product-name">Raspberry Pi 4</span>
-                        </div>
-                    </td>
-                    <td>2</td>
-                    <td>100$</td>
-                    <td>200$</td>
-                </tr>
+                <ng-container *ngFor="let item of cartItems">
+                    <tr>
+                        <td>
+                            <div class="product-info">
+                                <img [src]="item.product.thumbnail" alt="Product Image" 
+                                class="product-image">
+                                <span class="product-name">{{ item.product.name }}</span>
+                            </div>
+                        </td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.product.price }}$</td>
+                        <td>{{ item.product.price * item.quantity }}$</td>
+                    </tr>
+                </ng-container>
             </tbody>
         </table>
         <div class="text-center mt-3">
-            <button class="btn btn-gradient" type="button">Continue</button>
+            <button class="btn btn-gradient" type="button" (click)="onHome()">Continue</button>
         </div>
     </div>
 </div>

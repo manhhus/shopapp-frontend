@@ -26,7 +26,7 @@ export class DetailProductComponent implements OnInit{
   }
 
   ngOnInit() {
-    const idParam = 10;
+    const idParam = 12;
     if (idParam !== null) {
       this.productId = +idParam;
     }
@@ -79,7 +79,7 @@ export class DetailProductComponent implements OnInit{
 
   addToCart() {
     if(this.product) {
-      this.cartService.addToCart(this.product.id, this.quantity);
+      this.cartService.addToCart(this.productId, this.quantity);
     } else {
       console.error('product null');
     }

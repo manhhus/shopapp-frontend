@@ -7,12 +7,12 @@ export class CartService {
     private cart:Map<number, number> = new Map();
 
     constructor(private productService: ProductService) {     
-        if (typeof localStorage !== 'undefined') {
+        // if (typeof localStorage !== 'undefined') {
             const storedCart = localStorage.getItem('cart');
             if(storedCart) {
                 this.cart = new Map(JSON.parse(storedCart));
             }
-        }        
+        // }        
     }
 
     addToCart(productId: number, quantity: number = 1) {

@@ -1,14 +1,91 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
-
+import { Product } from '../models/product';
+import { CartService } from '../../services/cart.service';
+import { ProductService } from '../../services/product.service';
+import { enviroment } from '../../enviroments/enviroment';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { OrderDTO } from '../../dtos/order/order.dto';
+import { OrderService } from '../../services/order.service';
+import { Router } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [NavbarComponent,FooterComponent],
+  imports: [NavbarComponent,FooterComponent,CommonModule, FormsModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.scss'
 })
-export class OrderComponent {
+export class OrderComponent implements OnInit{
+  cartItems: { product:Product, quantity:number} [] = [];
+  couponCode: string = '';
+  totalAmount: number = 0;
+  orderData:OrderDTO = {
+    user_id: 1,
+    fullname: '',
+    phone_number: '',
+    address: '',
+    email: '',
+    note: '',
+    total_money: 0,
+    shipping_method: 'cod',
+    payment_method: 'express',
+    cart_items: []
+
+  }
+  constructor(private cartService:CartService, private productService: ProductService
+            , private orderService:OrderService, private router: Router) {
+    
+  }
+
+  ngOnInit(): void {
+    const cart = this.cartService.getCart();
+    const productIds = Array.from(cart.keys());
+    this.productService.getProductsByIds(productIds).subscribe({
+      next: (products) => {
+        this.cartItems = productIds.map((productId) => {
+          const product = products.find((p) => p.id === productId);
+          if(product) {
+            product.thumbnail = `${enviroment.apiBaseUrl}/products/images/${ product.thumbnail }`;
+          }
+          return { product: product!, quantity: cart.get(productId)! };
+
+        });
+      }, complete: () => {
+        this.calculateTotal()
+      }, error:(error:any) => {
+        console.error('error fetching cart');
+      }
+    });
+  }
+
+  calculateTotal() {
+    this.totalAmount = this.cartItems.reduce(
+      (total, item) => total + item.product.price * item.quantity, 0
+    );
+    this.totalAmount = this.totalAmount * this.applyCoupon()
+  }
+  applyCoupon() {
+    return 1;
+  }
+
+  placeOrder(){
+    this.orderData.cart_items = this.cartItems.map(item => ({
+      product_id: item.product.id,
+      quantity: item.quantity,
+    }));
+    this.orderService.placeOrder(this.orderData).subscribe({
+      next: (response) => {
+        alert(`Order successfully`);
+          this.router.navigate(['/webapp/order-confirm']);
+      }, complete: () => {
+
+      }, error: (error:any) => {
+        console.error('error fetching order');
+      }
+    })
+  }
 
 }

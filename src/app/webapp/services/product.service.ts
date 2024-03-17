@@ -23,4 +23,9 @@ export class ProductService {
     getDetailProduct(productId:number) {
       return this.htpp.get(`${enviroment.apiBaseUrl}/products/${productId}`)
     }
+
+    getProductsByIds(productIds: number[]): Observable<Product[]> {
+      const params = new HttpParams().set('ids', productIds.join(','));
+      return this.htpp.get<Product[]>(`${this.apiGetProducts}/by-ids`, { params });
+    }
  }

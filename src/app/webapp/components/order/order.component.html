@@ -10,17 +10,40 @@
             <h2 class="product-header">Receiver's infomation</h2>
             <form>
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name:</label>
-                    <input type="text" class="form-control" id="name">
+                    <label for="fullname" class="form-label">Name:</label>
+                    <input type="text" class="form-control" id="fullname" [(ngModel)]="orderData.fullname" required name="fullname">
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>
-                    <input type="text" class="form-control" id="email">
+                    <input type="text" class="form-control" id="email" [(ngModel)]="orderData.email" name="email">
                 </div>
                 <div class="mb-3">
                     <label for="phone" class="form-label">Phone:</label>
-                    <input type="tel" class="form-control" id="phone">
+                    <input type="tel" class="form-control" id="phone" [(ngModel)]="orderData.phone_number" required name="phone">
                 </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address:</label>
+                    <input type="text" class="form-control" id="address" [(ngModel)]="orderData.address" required name="address">
+                </div>
+                <div class="mb-3">
+                    <label for="note" class="form-label">Note:</label>
+                    <input type="text" class="form-control" id="note" [(ngModel)]="orderData.note" name="note">
+                </div>
+                <div class="mb-3">
+                    <label for="shipping" class="form-label">Shipping method:</label >
+                    <select class="form-control" id="shipping" [(ngModel)]="orderData.shipping_method" name="shipping-method" required>
+                        <option value="cod">Fast (Express)</option>
+                        <option value="other">Normal</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="payment" class="form-label">Payment method:</label>
+                    <select class="form-control" id="paymentMethod" [(ngModel)]="orderData.payment_method" name="payment-method" required>
+                        <option value="cod">COD</option>
+                        <option value="other">Other payment</option>
+                    </select>
+                </div>
+
             </form>
         </div>
 
@@ -36,46 +59,32 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <div class="product-info">
-                                <img src="https://images.pexels.com/photos/1472443/pexels-photo-1472443.jpeg"
-                                alt="Raspberry Pi 4"
-                                class="product-image">
-                                <span class="product-name">Raspberry Pi 4</span>
-                            </div>
-                        </td>
-                        <td>2</td>
-                        <td>100$</td>
-                        <td>200$</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="product-info">
-                                <img src="https://images.pexels.com/photos/1472443/pexels-photo-1472443.jpeg"
-                                alt="Raspberry Pi 4"
-                                class="product-image">
-                                <span class="product-name">Raspberry Pi 4</span>
-                            </div>
-                        </td>
-                        <td>1</td>
-                        <td>100$</td>
-                        <td>100$</td>
-                    </tr>
+                    <ng-container *ngFor="let item of cartItems">
+                        <tr>
+                            <td>
+                                <div class="product-info">
+                                    <img [src]="item.product.thumbnail" alt="Product Image" 
+                                    class="product-image">
+                                    <span class="product-name">{{ item.product.name }}</span>
+                                </div>
+                            </td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.product.price }}$</td>
+                            <td>{{ item.product.price * item.quantity }}$</td>
+                        </tr>
+                    </ng-container>
                 </tbody>
             </table>
-            <div class="text-start mt-3">
-                <h4 class="header-text text-end">ToTal: 300$</h4>
-                <div class="me-3">
-                    <h4 class="product-header">Enter coupon</h4>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Enter coupon">
-                        <button class="btn btn-gradient" type="button">Apply</button>
-                    </div>
+            <div class="input-group mb-3 mt-3 col-6">
+                <input type="text" class="form-control" [(ngModel)]="couponCode" placeholder="Coupon">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary btn-apply" type="button" (click)="applyCoupon()">Apply</button>
                 </div>
-                <div class="text-start mt-3">
-                    <button class="btn btn-gradient" type="button">Order</button>
-                </div>
+            </div>
+    
+            <p class="mt-0">Total: {{ totalAmount }}$ </p>
+            <div class="text-center mt-3">
+                <button class="btn btn-gradient" type="button" (click)="placeOrder()">Order</button>
             </div>
         </div>
     </div>
