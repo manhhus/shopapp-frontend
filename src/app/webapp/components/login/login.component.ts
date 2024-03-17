@@ -21,6 +21,7 @@ export class LoginComponent {
   @ViewChild('loginForm') loginForm!: NgForm;
   phone: string;
   password: string;
+  rememberMe: boolean;
   constructor(private http: HttpClient, 
     private router: Router, 
     private userService:UserService,
@@ -28,9 +29,13 @@ export class LoginComponent {
     ) {
     this.phone = '';
     this.password = '';
+    this.rememberMe = false;
   }
   onPhoneChange() {
     console.log(`Phone typed: ${this.phone}`);
+  }
+  onRememberMe() {
+    this.rememberMe = true;
   }
   login(){
     const loginDTO:LoginDTO = {
@@ -39,18 +44,20 @@ export class LoginComponent {
     }
     this.userService.login(loginDTO).subscribe(
       {
-        next: (reponse: LoginResponse) => {
-          const {token} = reponse;
-          this.tokenService.setToken(token);
+        next: (response: string) => {
+          const token = response;
+          if(this.rememberMe) {
+            this.tokenService.setToken(token);
+          }
           alert(`Login successfully`);
           this.router.navigate(['/webapp/home']);
         },
         complete: () => {
 
         }
-        // ,error: (error:any) => {
-        //   alert(`Cannot login, error: ${error.error}`);
-        // }
+        ,error: (error:any) => {
+          alert(`Cannot login, error: ${error.error}`);
+        }
         
       }
     )

@@ -6,19 +6,21 @@ import { CartService } from '../../services/cart.service';
 import { ProductService } from '../../services/product.service';
 import { enviroment } from '../../enviroments/enviroment';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { OrderDTO } from '../../dtos/order/order.dto';
 import { OrderService } from '../../services/order.service';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [NavbarComponent,FooterComponent,CommonModule, FormsModule],
+  imports: [NavbarComponent,FooterComponent,CommonModule, FormsModule,ReactiveFormsModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.scss'
 })
 export class OrderComponent implements OnInit{
+  orderForm: FormGroup;
   cartItems: { product:Product, quantity:number} [] = [];
   couponCode: string = '';
   totalAmount: number = 0;
@@ -36,8 +38,14 @@ export class OrderComponent implements OnInit{
 
   }
   constructor(private cartService:CartService, private productService: ProductService
-            , private orderService:OrderService, private router: Router) {
-    
+            , private orderService:OrderService, private router: Router, private formBuilder: FormBuilder) {
+    this.orderForm = this.formBuilder.group({
+      fullname: ['', [Validators.required]],
+      phone: ['', [Validators.required], Validators.minLength(6)],
+      email: ['', [Validators.email]],
+      address: ['', [Validators.required]],
+      note: ['', [Validators.required]]
+    });
   }
 
   ngOnInit(): void {
@@ -76,6 +84,7 @@ export class OrderComponent implements OnInit{
       product_id: item.product.id,
       quantity: item.quantity,
     }));
+    this.orderData.total_money = this.totalAmount;
     this.orderService.placeOrder(this.orderData).subscribe({
       next: (response) => {
         alert(`Order successfully`);
