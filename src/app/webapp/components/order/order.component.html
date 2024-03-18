@@ -1,11 +1,6 @@
 <app-navbar></app-navbar>
 
 <div class="container">
-    <div class="intro-section">
-        <h1> Order</h1>
-        <p> Su dung bootstrap</p>
-    </div>
-
     <div class="row">
         <div class="col-md-6">
             <h2 class="product-header">Receiver's infomation</h2>
@@ -33,15 +28,15 @@
                 <div class="mb-3">
                     <label for="shipping" class="form-label">Shipping method:</label >
                     <select class="form-control" id="shipping" [(ngModel)]="orderData.shipping_method" name="shipping-method" required>
-                        <option value="cod">Fast (Express)</option>
-                        <option value="other">Normal</option>
+                        <option value="Fast">Fast (Express)</option>
+                        <option value="Normal">Normal</option>
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="payment" class="form-label">Payment method:</label>
                     <select class="form-control" id="paymentMethod" [(ngModel)]="orderData.payment_method" name="payment-method" required>
-                        <option value="cod">COD</option>
-                        <option value="other">Other payment</option>
+                        <option value="COD">COD</option>
+                        <option value="Other">Other payment</option>
                     </select>
                 </div>
 

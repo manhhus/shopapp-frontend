@@ -1,10 +1,5 @@
 <app-navbar></app-navbar>
 <div class="container">
-    <div class="intro-section">
-        <h1> Home</h1>
-        <p> sp, anh</p>
-        <p> mua hang</p>
-    </div>
     <!--search box ben trai, combobox ben phai-->
     <div class="search-box">
         <input type="text" class="form-control search-input" placeholder="Search product"
@@ -20,8 +15,8 @@
     <div class="row">
         <div class="col-lg-4 col-md-6" *ngFor="let product of products">
             <div class="product-items">
-                <img [src]="product.url" alt="Product Image" class="product-image">
-                <h3 class="product-name">{{product.name}}</h3>
+                <img [src]="product.url" alt="Product Image" class="product-image"  (click)="onProductDetail(product.id)">
+                <h3 class="product-name" (click)="onProductDetail(product.id)">{{product.name}}</h3>
                 <p class="product-description">{{product.description}}</p>
                 <p class="product-warranty">Warranty: 12 months</p>
                 <p class="product-price">Price: <del>{{product.price*2}}$</del> {{product.price}}$</p>
@@ -33,9 +28,9 @@
                     <i class="fa-solid fa-star-half-stroke"></i>
                 </div>
                 <div class="product-action">
-                    <button class="btn btn-primary">Add to cart</button>
+                    <button class="btn btn-primary" (click)="addToCart(product.id)">Add to cart</button>
                     <span class="space-button"></span>
-                    <button class="btn btn-success">Buy now</button>
+                    <button class="btn btn-success" (click)="byNow(product.id)">Buy now</button>
                 </div>
             </div>
         </div>
@@ -45,23 +40,23 @@
 <div class="pagination-container">
     <nav aria-label="Page navigation">
         <ul class="pagination">
-            <li class="page-item" *ngIf="currentPage > 1">
-                <a class="page-link" (click)="onPageChange(1)">First</a>
+            <li class="page-item" *ngIf="currentPage > 0">
+                <a class="page-link" (click)="onPageChange(0)">First</a>
             </li>
-            <li class="page-item" *ngIf="currentPage > 1">
+            <li class="page-item" *ngIf="currentPage > 0">
                 <a class="page-link" (click)="onPageChange(currentPage - 1)">Prev</a>
             </li>
             <ng-container *ngFor="let page of visiblePages">
                 <li class="page-item" [ngClass]="{'active': page === currentPage}">
-                    <a class="page-link" (click)="onPageChange(page)">{{ page }}</a>
+                    <a class="page-link" (click)="onPageChange(page)">{{ page+1 }}</a>
                 </li>
             </ng-container>
             
-            <li class="page-item" *ngIf="currentPage < totalPages">
+            <li class="page-item" *ngIf="currentPage < totalPages-1">
                 <a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a>
             </li>
-            <li class="page-item" *ngIf="currentPage < totalPages">
-                <a class="page-link" (click)="onPageChange(totalPages)">Last</a>
+            <li class="page-item" *ngIf="currentPage < totalPages-1">
+                <a class="page-link" (click)="onPageChange(totalPages-1)">Last</a>
             </li>
         </ul>
     </nav>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
-import { Product } from '../models/product';
+import { Product } from '../../models/product';
 import { CartService } from '../../services/cart.service';
 import { ProductService } from '../../services/product.service';
 import { enviroment } from '../../enviroments/enviroment';
@@ -11,6 +11,8 @@ import { OrderDTO } from '../../dtos/order/order.dto';
 import { OrderService } from '../../services/order.service';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TokenService } from '../../services/token.service';
+import { Order } from '../../models/order';
 
 @Component({
   selector: 'app-order',
@@ -25,7 +27,7 @@ export class OrderComponent implements OnInit{
   couponCode: string = '';
   totalAmount: number = 0;
   orderData:OrderDTO = {
-    user_id: 1,
+    user_id: 0,
     fullname: '',
     phone_number: '',
     address: '',
@@ -38,7 +40,8 @@ export class OrderComponent implements OnInit{
 
   }
   constructor(private cartService:CartService, private productService: ProductService
-            , private orderService:OrderService, private router: Router, private formBuilder: FormBuilder) {
+            , private orderService:OrderService, private router: Router, private formBuilder: FormBuilder
+            , private tokenService: TokenService) {
     this.orderForm = this.formBuilder.group({
       fullname: ['', [Validators.required]],
       phone: ['', [Validators.required], Validators.minLength(6)],
@@ -49,8 +52,12 @@ export class OrderComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.orderData.user_id = this.tokenService.getUserId();
     const cart = this.cartService.getCart();
     const productIds = Array.from(cart.keys());
+    if(productIds.length === 0) {
+      return;
+    }
     this.productService.getProductsByIds(productIds).subscribe({
       next: (products) => {
         this.cartItems = productIds.map((productId) => {
@@ -86,9 +93,9 @@ export class OrderComponent implements OnInit{
     }));
     this.orderData.total_money = this.totalAmount;
     this.orderService.placeOrder(this.orderData).subscribe({
-      next: (response) => {
-        alert(`Order successfully`);
-          this.router.navigate(['/webapp/order-confirm']);
+      next: (response:any) => {
+          this.cartService.clearCart()
+          this.router.navigate(['/order-confirm', response.id]);
       }, complete: () => {
 
       }, error: (error:any) => {

@@ -7,7 +7,7 @@ import { TokenService } from './token.service';
   providedIn: 'root'
 })
 export class OrderService {
-    private apiPostOrder = `${enviroment.apiBaseUrl}/orders`;
+    private apiOrder = `${enviroment.apiBaseUrl}/orders`;
 
 
 
@@ -22,9 +22,13 @@ export class OrderService {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`
             });
-            return this.htpp.post(this.apiPostOrder, orderData, { headers });
+            return this.htpp.post(this.apiOrder, orderData, { headers });
         } else {
-            return this.htpp.post(this.apiPostOrder, orderData, { headers });
+            return this.htpp.post(this.apiOrder, orderData, { headers });
         }
+    }
+
+    getOrderById(orderId:number) {
+        return this.htpp.get(`${this.apiOrder}/${orderId}`);
     }
 }

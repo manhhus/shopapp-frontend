@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
 import { ProductService } from '../../services/product.service';
-import { Product } from '../models/product';
+import { Product } from '../../models/product';
 import { enviroment } from '../../enviroments/enviroment';
 import { CommonModule } from '@angular/common';
 import { CategoryService } from '../../services/category.service';
-import { Category } from '../models/category';
+import { Category } from '../../models/category';
 import { error } from 'console';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
   products: Product[] = [];
-  currentPage: number = 1;
+  currentPage: number = 0;
   itemsPerPage: number = 9;
   pages: number[] = [];
   totalPages: number = 0;
@@ -28,7 +29,8 @@ export class HomeComponent implements OnInit {
   selectedCategoryId:number = 0;
   categories: Category[]=[];
 
-  constructor(private productService: ProductService, private categoryService: CategoryService) {}
+  constructor(private productService: ProductService, private categoryService: CategoryService,
+    private router:Router) {}
   
   ngOnInit() {
     this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
@@ -48,7 +50,7 @@ export class HomeComponent implements OnInit {
     });
   }
   searchProducts() {
-    this.currentPage = 1;
+    this.currentPage = 0;
     this.itemsPerPage = 9;
     this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
   }
@@ -93,5 +95,16 @@ export class HomeComponent implements OnInit {
     endPage = Math.max(endPage, startPage); // Ensure endPage is not less than startPage
   
     return new Array(endPage - startPage + 1).fill(0).map((_, index) => startPage + index);
+  }
+
+  onProductDetail(productId:number) {
+    this.router.navigate(['/detail-product', productId]);
+  }
+
+  addToCart(productId:number)  {
+    this.router.navigate(['/detail-product', productId]);
+  }
+  byNow(productId:number)  {
+    this.router.navigate(['/detail-product', productId]);
   }
 }

@@ -25,11 +25,14 @@
     padding: 20px;
     margin-bottom: 20px;
 }
-
+.product-name {
+    cursor: pointer;
+}
 .product-image {
     width: 100%;
     height: auto;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 .product-warranty {
     color: rgb(105, 25, 142);

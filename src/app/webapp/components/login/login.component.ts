@@ -9,6 +9,7 @@ import { UserService } from '../../services/user.service';
 import { LoginDTO } from '../../dtos/user/login.dto';
 import { LoginResponse } from '../../responses/user/login.response';
 import { TokenService } from '../../services/token.service';
+import { UserResponse } from '../../responses/user/user.response';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginComponent {
   phone: string;
   password: string;
   rememberMe: boolean;
+  userResponse?:UserResponse;
   constructor(private http: HttpClient, 
     private router: Router, 
     private userService:UserService,
@@ -48,9 +50,32 @@ export class LoginComponent {
           const token = response;
           if(this.rememberMe) {
             this.tokenService.setToken(token);
+            this.userService.getUserDetail(token).subscribe({
+              next:(response:any) => {
+                  this.userResponse = {
+                    id: response.id,
+                    fullname: response.fullname,
+                    address: response.address,
+                    phone_number: response.phone_number,
+                    date_of_birth: new Date(response.date_of_birth),
+                    facebook_account_id: response.facebook_account_id,
+                    google_account_id: response.google_account_id,
+                    role_id: response.role_id
+                    //userResponse = {
+                    //   ...response,
+                    //   date_of_birth: new Date(response.date_of_birth)
+                    // }
+                  };
+                  this.userService.saveUserResponseToLocalStorage(this.userResponse);
+                  this.router.navigate(['/']);
+              }, complete: ()=> {
+
+              }, error: (error:any)=> {
+                console.error("error fetching user");
+              }
+            })
           }
-          alert(`Login successfully`);
-          this.router.navigate(['/webapp/home']);
+          
         },
         complete: () => {
 
@@ -64,6 +89,8 @@ export class LoginComponent {
   }
 
   onRegister() {
-    this.router.navigate(['/webapp/register']);
+    this.router.navigate(['/register']);
   }
+
+
 }

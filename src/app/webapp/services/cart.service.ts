@@ -1,20 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { ProductService } from './product.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CartService {
+export class CartService implements OnInit{
     private cart:Map<number, number> = new Map();
 
     constructor(private productService: ProductService) {     
-        // if (typeof localStorage !== 'undefined') {
-            const storedCart = localStorage.getItem('cart');
-            if(storedCart) {
-                this.cart = new Map(JSON.parse(storedCart));
-            }
-        // }        
+          
     }
-
+    ngOnInit(): void {
+        // if (typeof localStorage !== 'undefined') {
+        const storedCart = localStorage.getItem('cart');
+        if(storedCart) {
+            this.cart = new Map(JSON.parse(storedCart));
+        }
+        // }      
+    }
     addToCart(productId: number, quantity: number = 1) {
         if(this.cart.has(productId)) {
             this.cart.set(productId, this.cart.get(productId)! + quantity);

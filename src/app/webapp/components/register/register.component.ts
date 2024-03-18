@@ -61,7 +61,7 @@ export class RegisterComponent {
       {
         next: (reponse:any) => {
           alert(`Register successfully`);
-          this.router.navigate(['/webapp/login']);
+          this.router.navigate(['/login']);
         },
         complete: () => {
 
@@ -99,6 +99,6 @@ export class RegisterComponent {
   }
 
   onLogin() {
-    this.router.navigate(['/webapp/login']);
+    this.router.navigate(['/login']);
   }
 }
