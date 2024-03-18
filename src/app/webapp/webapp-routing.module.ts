@@ -8,16 +8,19 @@ import { OrderComponent } from './components/order/order.component';
 import { OrderConfirmComponent } from './components/order-confirm/order-confirm.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AuthGuardFn } from './guards/auth.guard';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: 'navbar', component: NavbarComponent },
   { path: '', component: HomeComponent },
   { path: 'footer', component: FooterComponent },
   { path: 'detail-product/:id', component: DetailProductComponent },
-  { path: 'order', component: OrderComponent },
+  { path: 'order', component: OrderComponent,canActivate:[AuthGuardFn] },
   { path: 'order-confirm/:id', component: OrderConfirmComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'user-profile', component: UserProfileComponent,canActivate:[AuthGuardFn] }
 ];
 
 @NgModule({

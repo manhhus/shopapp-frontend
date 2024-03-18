@@ -1,0 +1,98 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+    <form [formGroup]="userForm">
+        <div class="row">
+            <div class="col-md-6 form-user">
+                <h2 class="product-header">User's infomation</h2>
+                <div class="mb-3">
+                    <p class="form-label">Name: {{ fullName }}</p>
+                </div>
+                <div class="mb-3">
+                    <p class="form-label">Email: {{ email }}</p>
+                </div>
+                <div class="mb-3">
+                    <p class="form-label">Phone: {{ phone }}</p>
+                </div>
+                <div class="mb-3">
+                    <p class="form-label">Birthday: {{ dateOfBirth }}</p>
+                </div>
+                <div class="mb-3">
+                    <p class="form-label">Address: {{ address }}</p>
+                </div>
+            </div>
+            <div class="col-md-6 mx-auto text-center update-user">
+                <div class="mb-3">
+                    <label for="fullname" class="form-label">Name:</label>
+                    <input type="text" class="form-control" id="fullname" 
+                    name="fullname" formControlName="fullname"
+                    [class.is-invalid]="userForm.get('fullname')?.invalid && userForm.get('fullname')?.touched">
+                    <div *ngIf="userForm.get('fullname')?.invalid && userForm.get('fullname')?.touched"
+                    class="invalid-feedback">
+                    Error</div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="text" class="form-control" id="email" name="email"
+                    formControlName="email"
+                    [class.is-invalid]="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+                    <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
+                    class="invalid-feedback">
+                    Error</div>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone:</label>
+                    <input type="tel" class="form-control" id="phone" name="phone"
+                    formControlName="phone"
+                    [class.is-invalid]="userForm.get('phone')?.invalid && userForm.get('phone')?.touched">
+                    <div *ngIf="userForm.get('phone')?.invalid && userForm.get('phone')?.touched"
+                    class="invalid-feedback">
+                    Error</div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" formControlName="password"
+                        [class.is-invalid]="userForm.get('password')!.invalid && userForm.get('password')!.touched">
+                    <div *ngIf="userForm.get('password')!.invalid && userForm.get('password')!.touched" class="invalid-feedback">
+                        Error
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="retypepassword" class="form-label">Confirm Password:</label>
+                    <input type="password" class="form-control" id="retypepassword" name="retypepassword"
+                        formControlName="retypepassword" [class.is-invalid]="retypePasswordInvalid">
+                    <div *ngIf="retypePasswordInvalid" class="invalid-feedback">
+                        Passwords do not match
+                    </div>
+                </div>
+                <div>
+                    <label for="date-of-birth">Date of Birth:</label>
+                    <input type="date" class="form-control" name="date-of-birth" id="date-of-birth"
+                    formControlName="date-of-birt"
+                    [class.is-invalid]="userForm.get('date')?.invalid && userForm.get('date')?.touched">
+                    <div *ngIf="userForm.get('date')?.invalid && userForm.get('date')?.touched"
+                    class="invalid-feedback">
+                    Error</div>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address:</label>
+                    <input type="text" class="form-control" id="address" name="address"
+                    formControlName="address"
+                    [class.is-invalid]="userForm.get('address')?.invalid && userForm.get('address')?.touched">
+                    <div *ngIf="userForm.get('address')?.invalid && userForm.get('address')?.touched"
+                    class="invalid-feedback">
+                    Error</div>
+                </div> 
+                <div class="text-center mt-3" >
+                    <button class="btn btn-gradient" type="button" (click)="updateUser()">Update</button>
+                </div>
+            </div>
+            
+        </div> 
+    </form>
+</div>
+    
+
+
+
+<app-footer></app-footer>

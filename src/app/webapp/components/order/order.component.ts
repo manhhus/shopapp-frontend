@@ -44,7 +44,7 @@ export class OrderComponent implements OnInit{
             , private tokenService: TokenService) {
     this.orderForm = this.formBuilder.group({
       fullname: ['', [Validators.required]],
-      phone: ['', [Validators.required], Validators.minLength(6)],
+      phone: ['', [Validators.required, Validators.minLength(6)]],
       email: ['', [Validators.email]],
       address: ['', [Validators.required]],
       note: ['', [Validators.required]]

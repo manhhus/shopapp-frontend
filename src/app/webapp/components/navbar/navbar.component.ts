@@ -37,7 +37,10 @@ export class NavbarComponent implements OnInit{
   }
 
   handleItemClick(item:number){
-    if(item === 2) {
+    if(item === 0) {
+      this.router.navigate(['/user-profile']);
+    }
+    else if(item === 2) {
       this.userService.removeUserResponseFromLocalStorage();
       this.tokenService.removeToken();
       this.userResponse = this.userService.getUserResponseFromLocalStorage();
