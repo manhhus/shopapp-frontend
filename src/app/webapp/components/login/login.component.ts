@@ -14,7 +14,7 @@ import { UserResponse } from '../../responses/user/user.response';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent,CommonModule,FormsModule],
+  imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -23,12 +23,12 @@ export class LoginComponent {
   phone: string;
   password: string;
   rememberMe: boolean;
-  userResponse?:UserResponse;
-  constructor(private http: HttpClient, 
-    private router: Router, 
-    private userService:UserService,
-    private tokenService:TokenService
-    ) {
+  userResponse?: UserResponse;
+  constructor(private http: HttpClient,
+    private router: Router,
+    private userService: UserService,
+    private tokenService: TokenService
+  ) {
     this.phone = '';
     this.password = '';
     this.rememberMe = false;
@@ -39,8 +39,8 @@ export class LoginComponent {
   onRememberMe() {
     this.rememberMe = true;
   }
-  login(){
-    const loginDTO:LoginDTO = {
+  login() {
+    const loginDTO: LoginDTO = {
       "phone_number": this.phone,
       "password": this.password,
     }
@@ -48,42 +48,41 @@ export class LoginComponent {
       {
         next: (response: string) => {
           const token = response;
-          if(this.rememberMe) {
+          if (this.rememberMe) {
             this.tokenService.setToken(token);
             this.userService.getUserDetail(token).subscribe({
-              next:(response:any) => {
-                  this.userResponse = {
-                    id: response.id,
-                    fullname: response.fullname,
-                    address: response.address,
-                    phone_number: response.phone_number,
-                    date_of_birth: new Date(response.date_of_birth),
-                    facebook_account_id: response.facebook_account_id,
-                    google_account_id: response.google_account_id,
-                    role_id: response.role_id
-                    //userResponse = {
-                    //   ...response,
-                    //   date_of_birth: new Date(response.date_of_birth)
-                    // }
-                  };
-                  this.userService.saveUserResponseToLocalStorage(this.userResponse);
-                  this.router.navigate(['/']);
-              }, complete: ()=> {
+              next: (response: any) => {
+                this.userResponse = {
+                  id: response.id,
+                  fullname: response.fullname,
+                  address: response.address,
+                  phone_number: response.phone_number,
+                  date_of_birth: new Date(response.date_of_birth),
+                  facebook_account_id: response.facebook_account_id,
+                  google_account_id: response.google_account_id,
+                  role_id: response.role_id
+                  //userResponse = {
+                  //   ...response,
+                  //   date_of_birth: new Date(response.date_of_birth)
+                  // }
+                };
+                this.userService.saveUserResponseToLocalStorage(this.userResponse);
+                this.router.navigate(['/']);
+              }, complete: () => {
 
-              }, error: (error:any)=> {
+              }, error: (error: any) => {
                 console.error("error fetching user");
               }
             })
           }
-          
         },
         complete: () => {
 
         }
-        ,error: (error:any) => {
+        , error: (error: any) => {
           alert(`Cannot login, error: ${error.error}`);
         }
-        
+
       }
     )
   }

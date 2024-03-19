@@ -11,9 +11,9 @@ import { UpdateUserDTO } from '../dtos/user/update.user.dto';
   providedIn: 'root'
 })
 export class UserService {
-  private apiRegister= `${enviroment.apiBaseUrl}/users/register`;
-  private apiLogin= `${enviroment.apiBaseUrl}/users/login`;
-  private apiDetails= `${enviroment.apiBaseUrl}/users/details`;
+  private apiRegister = `${enviroment.apiBaseUrl}/users/register`;
+  private apiLogin = `${enviroment.apiBaseUrl}/users/login`;
+  private apiDetails = `${enviroment.apiBaseUrl}/users/details`;
 
   private apiConfig = {
     headers: this.createHeader()
@@ -34,51 +34,55 @@ export class UserService {
     });
   }
 
-  getUserDetail(token: string ):Observable<any> {
-    return this.http.post(this.apiDetails,{},{
-      headers: new HttpHeaders({ 'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}` })
+  getUserDetail(token: string): Observable<any> {
+    return this.http.post(this.apiDetails, {}, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      })
     });
   }
-  updateUserDetail(token: string, updateUserDTO:UpdateUserDTO ,user_id:number):Observable<any> {
+  updateUserDetail(token: string, updateUserDTO: UpdateUserDTO, user_id: number): Observable<any> {
     return this.http.put(`${this.apiDetails}/${user_id}`, updateUserDTO, {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}` })
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      })
     });
   }
 
-  saveUserResponseToLocalStorage(userResponse:UserResponse) {
-    try{
+  saveUserResponseToLocalStorage(userResponse: UserResponse) {
+    try {
       const userResponseJSON = JSON.stringify(userResponse);
       localStorage.setItem('userResponse', userResponseJSON);
       console.log('User response saved to localStorage');
-    } catch(error) {
+    } catch (error) {
       console.error('Error save user response to localStorage', error);
     }
   }
-  getUserResponseFromLocalStorage():UserResponse | null{
-    try{
+  getUserResponseFromLocalStorage(): UserResponse | null {
+    try {
       let userResponseJSON = null;
       if (typeof localStorage !== 'undefined') {
         userResponseJSON = localStorage.getItem('userResponse');
       }
-      if(userResponseJSON == null || userResponseJSON == undefined){
+      if (userResponseJSON == null || userResponseJSON == undefined) {
         return null;
       }
       const userResponse = JSON.parse(userResponseJSON!);
       console.log('User response saved to localStorage');
       return userResponse;
-    } catch(error) {
+    } catch (error) {
       console.error('Error save user response to localStorage', error);
       return null;
     }
   }
 
-  removeUserResponseFromLocalStorage(){
-    try{
+  removeUserResponseFromLocalStorage() {
+    try {
       localStorage.removeItem('userResponse');
       console.log('User removed from localStorage');
-    } catch(error) {
+    } catch (error) {
       console.error('Error save user response to localStorage', error);
     }
   }

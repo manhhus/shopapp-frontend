@@ -11,7 +11,7 @@ import { RegisterDTO } from '../../dtos/user/register.dto';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, FormsModule,CommonModule],
+  imports: [NavbarComponent, FooterComponent, FormsModule, CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -24,7 +24,7 @@ export class RegisterComponent {
   address: string;
   isAccepted: boolean;
   dateOfBirth: Date;
-  constructor(private http: HttpClient, private router: Router, private userService:UserService) {
+  constructor(private http: HttpClient, private router: Router, private userService: UserService) {
     this.phone = '';
     this.password = '';
     this.retypePassword = '';
@@ -37,16 +37,16 @@ export class RegisterComponent {
   onPhoneChange() {
     console.log(`Phone typed: ${this.phone}`);
   }
-  register(){
+  register() {
     const message = `phone: ${this.phone}` +
-                    `password: ${this.password}` +
-                    `retypePassword: ${this.retypePassword}` +
-                    `fullName: ${this.fullName}` +
-                    `address: ${this.address}` +
-                    `isAccepted: ${this.isAccepted}` + 
-                    `dateOfBirth: ${this.dateOfBirth}`;
+      `password: ${this.password}` +
+      `retypePassword: ${this.retypePassword}` +
+      `fullName: ${this.fullName}` +
+      `address: ${this.address}` +
+      `isAccepted: ${this.isAccepted}` +
+      `dateOfBirth: ${this.dateOfBirth}`;
     // alert(message);
-    const registerDTO:RegisterDTO = {
+    const registerDTO: RegisterDTO = {
       "fullname": this.fullName,
       "phone_number": this.phone,
       "address": this.address,
@@ -54,35 +54,35 @@ export class RegisterComponent {
       "retype_password": this.retypePassword,
       "date_of_birth": this.dateOfBirth,
       "facebook_account_id": 0,
-      "google_account_id":0,
-      "role_id":1
+      "google_account_id": 0,
+      "role_id": 1
     }
     this.userService.register(registerDTO).subscribe(
       {
-        next: (reponse:any) => {
+        next: (reponse: any) => {
           alert(`Register successfully`);
           this.router.navigate(['/login']);
         },
         complete: () => {
 
         },
-        error: (error:any) => {
+        error: (error: any) => {
           alert(`Cannot register, error: ${error.error}`);
         }
-          
+
       }
     )
   }
   checkPasswordsMatch() {
-    if(this.password !== this.retypePassword) {
-      this.registerForm.form.controls['retypePassword'].setErrors({ 'passwordMismatch': true});
+    if (this.password !== this.retypePassword) {
+      this.registerForm.form.controls['retypePassword'].setErrors({ 'passwordMismatch': true });
     } else {
       this.registerForm.form.controls['retypePassword'].setErrors(null);
     }
   }
 
   checkAge() {
-    if(this.dateOfBirth) {
+    if (this.dateOfBirth) {
       const today = new Date();
       const birthDate = new Date(this.dateOfBirth);
       let age = today.getFullYear() - birthDate.getFullYear();
@@ -90,9 +90,9 @@ export class RegisterComponent {
       if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
         age--;
       }
-      if(age < 13) {
-        this.registerForm.form.controls['dateOfBirth'].setErrors({'invalidAge':true});
-      } else{
+      if (age < 13) {
+        this.registerForm.form.controls['dateOfBirth'].setErrors({ 'invalidAge': true });
+      } else {
         this.registerForm.form.controls['dateOfBirth'].setErrors(null);
       }
     }

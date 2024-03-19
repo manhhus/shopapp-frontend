@@ -17,16 +17,16 @@ import { Order } from '../../models/order';
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [NavbarComponent,FooterComponent,CommonModule, FormsModule,ReactiveFormsModule],
+  imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.scss'
 })
-export class OrderComponent implements OnInit{
+export class OrderComponent implements OnInit {
   orderForm: FormGroup;
-  cartItems: { product:Product, quantity:number} [] = [];
+  cartItems: { product: Product, quantity: number }[] = [];
   couponCode: string = '';
   totalAmount: number = 0;
-  orderData:OrderDTO = {
+  orderData: OrderDTO = {
     user_id: 0,
     fullname: '',
     phone_number: '',
@@ -36,12 +36,12 @@ export class OrderComponent implements OnInit{
     total_money: 0,
     shipping_method: 'cod',
     payment_method: 'express',
-    cart_items: [] 
+    cart_items: []
   }
-  
-  constructor(private cartService:CartService, private productService: ProductService
-            , private orderService:OrderService, private router: Router, private formBuilder: FormBuilder
-            , private tokenService: TokenService) {
+
+  constructor(private cartService: CartService, private productService: ProductService
+    , private orderService: OrderService, private router: Router, private formBuilder: FormBuilder
+    , private tokenService: TokenService) {
     this.orderForm = this.formBuilder.group({
       fullname: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.minLength(6)]],
@@ -57,22 +57,22 @@ export class OrderComponent implements OnInit{
     this.orderData.user_id = this.tokenService.getUserId();
     const cart = this.cartService.getCart();
     const productIds = Array.from(cart.keys());
-    if(productIds.length === 0) {
+    if (productIds.length === 0) {
       return;
     }
     this.productService.getProductsByIds(productIds).subscribe({
       next: (products) => {
         this.cartItems = productIds.map((productId) => {
           const product = products.find((p) => p.id === productId);
-          if(product) {
-            product.thumbnail = `${enviroment.apiBaseUrl}/products/images/${ product.thumbnail }`;
+          if (product) {
+            product.thumbnail = `${enviroment.apiBaseUrl}/products/images/${product.thumbnail}`;
           }
           return { product: product!, quantity: cart.get(productId)! };
 
         });
       }, complete: () => {
         this.calculateTotal()
-      }, error:(error:any) => {
+      }, error: (error: any) => {
         console.error('error fetching cart');
       }
     });
@@ -92,19 +92,19 @@ export class OrderComponent implements OnInit{
     return 1;
   }
 
-  placeOrder(){
+  placeOrder() {
     this.orderData.cart_items = this.cartItems.map(item => ({
       product_id: item.product.id,
       quantity: item.quantity,
     }));
     this.orderData.total_money = this.totalAmount;
     this.orderService.placeOrder(this.orderData).subscribe({
-      next: (response:any) => {
-          this.cartService.clearCart()
-          this.router.navigate(['/order-confirm', response.id]);
+      next: (response: any) => {
+        this.cartService.clearCart()
+        this.router.navigate(['/order-confirm', response.id]);
       }, complete: () => {
 
-      }, error: (error:any) => {
+      }, error: (error: any) => {
         console.error('error fetching order');
       }
     })

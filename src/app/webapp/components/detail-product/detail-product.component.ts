@@ -13,22 +13,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-detail-product',
   standalone: true,
-  imports: [NavbarComponent,FooterComponent,CommonModule, FormsModule],
+  imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule],
   templateUrl: './detail-product.component.html',
   styleUrl: './detail-product.component.scss'
 })
-export class DetailProductComponent implements OnInit{
+export class DetailProductComponent implements OnInit {
   product?: Product;
   currentImageIndex: number = 0;
   productId: number = 0;
   quantity: number = 0;
-  constructor(private productService: ProductService, private cartService:CartService
-    ,private route:ActivatedRoute, private router:Router) {
+  constructor(private productService: ProductService, private cartService: CartService
+    , private route: ActivatedRoute, private router: Router) {
 
   }
 
   ngOnInit() {
-    
+
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       if (idParam !== null) {
@@ -37,10 +37,10 @@ export class DetailProductComponent implements OnInit{
         console.error('Invalid productId:', idParam);
       }
     });
-    if(!isNaN(this.productId)) {
+    if (!isNaN(this.productId)) {
       this.productService.getDetailProduct(this.productId).subscribe({
-        next: (response:any) => {
-          if(response.product_images && response.product_images.length > 0) {
+        next: (response: any) => {
+          if (response.product_images && response.product_images.length > 0) {
             response.product_images.forEach((product_image: ProductImage) => {
               if (!product_image.imageUrl.startsWith(`${enviroment.apiBaseUrl}/products/images/`)) {
                 product_image.imageUrl = `${enviroment.apiBaseUrl}/products/images/${product_image.imageUrl}`;
@@ -50,8 +50,8 @@ export class DetailProductComponent implements OnInit{
           this.product = response;
           this.showImage(0);
         }, complete: () => {
-          
-        }, error:(error:any)=> {
+
+        }, error: (error: any) => {
           console.error('error fetching image', error);
         }
       });
@@ -60,9 +60,9 @@ export class DetailProductComponent implements OnInit{
     }
   }
 
-  showImage(index:number){
-    if(this.product && this.product.product_images && this.product.product_images.length > 0) {
-      if(index < 0) {
+  showImage(index: number) {
+    if (this.product && this.product.product_images && this.product.product_images.length > 0) {
+      if (index < 0) {
         index = this.product.product_images.length - 1;
       } else if (index >= this.product.product_images.length) {
         index = 0;
@@ -85,7 +85,7 @@ export class DetailProductComponent implements OnInit{
   }
 
   addToCart() {
-    if(this.product) {
+    if (this.product) {
       this.cartService.addToCart(this.productId, this.quantity);
       this.quantity = 0;
     } else {

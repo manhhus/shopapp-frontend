@@ -13,36 +13,36 @@ import { error } from 'console';
 @Component({
   selector: 'app-order-confirm',
   standalone: true,
-  imports: [NavbarComponent,FooterComponent,CommonModule, FormsModule],
+  imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule],
   templateUrl: './order-confirm.component.html',
   styleUrl: './order-confirm.component.scss'
 })
-export class OrderConfirmComponent implements OnInit{
+export class OrderConfirmComponent implements OnInit {
   orderResponse: OrderResponse = {
     id: 0,
-    user_id:0,
+    user_id: 0,
     fullname: '',
-    email:'',
-    phone_number:'',
-    address:'',
-    note:'',
+    email: '',
+    phone_number: '',
+    address: '',
+    note: '',
     order_date: new Date(),
-    status:'',
-    total_money:0,
-    shipping_method:'',
-    shipping_address:'',
+    status: '',
+    total_money: 0,
+    shipping_method: '',
+    shipping_address: '',
     shipping_date: new Date(),
-    payment_method:'',
+    payment_method: '',
     order_details: []
   }
- 
-  constructor(private orderService: OrderService,private router: Router,
-    private route:ActivatedRoute) {
+
+  constructor(private orderService: OrderService, private router: Router,
+    private route: ActivatedRoute) {
 
   }
 
   ngOnInit(): void {
-    let orderId:number = 0;
+    let orderId: number = 0;
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       if (idParam !== null) {
@@ -53,9 +53,9 @@ export class OrderConfirmComponent implements OnInit{
     });
     this.getOrderDetails(orderId);
   }
-   
-  getOrderDetails(orderId:number) {
-    
+
+  getOrderDetails(orderId: number) {
+
     this.orderService.getOrderById(orderId).subscribe({
       next: (response: any) => {
         this.orderResponse.id = response.id;
@@ -81,9 +81,9 @@ export class OrderConfirmComponent implements OnInit{
         this.orderResponse.payment_method = response.payment_method;
         this.orderResponse.order_details = response.order_details.map(
           (order_detail: OrderDetail) => {
-            if(order_detail.product.thumbnail != null) {
+            if (order_detail.product.thumbnail != null) {
               if (!order_detail.product.thumbnail.startsWith(`${enviroment.apiBaseUrl}/products/images/`)) {
-                  order_detail.product.thumbnail = `${enviroment.apiBaseUrl}/products/images/${order_detail.product.thumbnail}`;
+                order_detail.product.thumbnail = `${enviroment.apiBaseUrl}/products/images/${order_detail.product.thumbnail}`;
               }
             }
             else {
@@ -92,15 +92,15 @@ export class OrderConfirmComponent implements OnInit{
             return order_detail;
           }
         )
-      },complete: () => {
+      }, complete: () => {
 
-      }, error: (error:any) => {
+      }, error: (error: any) => {
         console.error('error fetching order');
       }
     })
   }
 
-  onHome(){
+  onHome() {
     this.router.navigate(['/']);
   }
 

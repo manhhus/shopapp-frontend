@@ -4,23 +4,22 @@ import { enviroment } from '../enviroments/enviroment';
 import { OrderDTO } from '../dtos/order/order.dto';
 import { TokenService } from './token.service';
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class OrderService {
     private apiOrder = `${enviroment.apiBaseUrl}/orders`;
 
-
-
-    constructor(private htpp: HttpClient, private tokenService:TokenService){
+    constructor(private htpp: HttpClient, private tokenService: TokenService) {
     }
-    placeOrder(orderData:OrderDTO) {
+    placeOrder(orderData: OrderDTO) {
         const token = this.tokenService.getToken();
         const headers = new HttpHeaders({
-            'Content-Type': 'application/json'});
+            'Content-Type': 'application/json'
+        });
         if (token) {
             const headers = new HttpHeaders({
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             });
             return this.htpp.post(this.apiOrder, orderData, { headers });
         } else {
@@ -28,11 +27,11 @@ export class OrderService {
         }
     }
 
-    getOrderById(orderId:number) {
+    getOrderById(orderId: number) {
         return this.htpp.get(`${this.apiOrder}/${orderId}`);
     }
 
-    getOrderedList(userId:number) {
+    getOrderedList(userId: number) {
         return this.htpp.get(`${this.apiOrder}/user/${userId}`);
     }
 

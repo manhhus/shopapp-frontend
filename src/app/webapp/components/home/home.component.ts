@@ -25,26 +25,26 @@ export class HomeComponent implements OnInit {
   pages: number[] = [];
   totalPages: number = 0;
   visiblePages: number[] = [];
-  keyword:string = "";
-  selectedCategoryId:number = 0;
-  categories: Category[]=[];
+  keyword: string = "";
+  selectedCategoryId: number = 0;
+  categories: Category[] = [];
 
   constructor(private productService: ProductService, private categoryService: CategoryService,
-    private router:Router) {}
-  
+    private router: Router) { }
+
   ngOnInit() {
     this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
     this.getCategories(1, 100);
   }
 
-  getCategories(page:number, limit:number) {
+  getCategories(page: number, limit: number) {
     this.categoryService.getCategories(page, limit).subscribe({
       next: (categories: Category[]) => {
         this.categories = categories;
       }, complete: () => {
 
       },
-      error: (error:any) => {
+      error: (error: any) => {
         console.error('Error fetching categories', error);
       }
     });
@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
     this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
   }
 
-  getProducts(keyword:string, selectedCategoryId:number, page:number, limit:number) {
+  getProducts(keyword: string, selectedCategoryId: number, page: number, limit: number) {
     this.productService.getProducts(keyword, selectedCategoryId, page, limit).subscribe(
       {
         next: (response: any) => {
@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
         complete: () => {
 
         },
-        error: (error:any) => {
+        error: (error: any) => {
           console.error('Error fetching products', error);
         }
       }
@@ -84,27 +84,27 @@ export class HomeComponent implements OnInit {
   generateVisiblePageArray(currentPage: number, totalPages: number): number[] {
     const maxVisiblePage = 5;
     const halfVisiblePage = Math.floor(maxVisiblePage / 2);
-  
+
     let startPage = Math.max(currentPage - halfVisiblePage, 1);
     let endPage = Math.min(startPage + maxVisiblePage - 1, totalPages);
-  
+
     if (endPage - startPage + 1 < maxVisiblePage) {
       startPage = Math.max(endPage - maxVisiblePage + 1, 1);
     }
-  
+
     endPage = Math.max(endPage, startPage); // Ensure endPage is not less than startPage
-  
+
     return new Array(endPage - startPage + 1).fill(0).map((_, index) => startPage + index);
   }
 
-  onProductDetail(productId:number) {
+  onProductDetail(productId: number) {
     this.router.navigate(['/detail-product', productId]);
   }
 
-  addToCart(productId:number)  {
+  addToCart(productId: number) {
     this.router.navigate(['/detail-product', productId]);
   }
-  byNow(productId:number)  {
+  byNow(productId: number) {
     this.router.navigate(['/detail-product', productId]);
   }
 }
