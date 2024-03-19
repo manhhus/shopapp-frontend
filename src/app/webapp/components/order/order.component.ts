@@ -36,9 +36,9 @@ export class OrderComponent implements OnInit{
     total_money: 0,
     shipping_method: 'cod',
     payment_method: 'express',
-    cart_items: []
-
+    cart_items: [] 
   }
+  
   constructor(private cartService:CartService, private productService: ProductService
             , private orderService:OrderService, private router: Router, private formBuilder: FormBuilder
             , private tokenService: TokenService) {
@@ -47,7 +47,9 @@ export class OrderComponent implements OnInit{
       phone: ['', [Validators.required, Validators.minLength(6)]],
       email: ['', [Validators.email]],
       address: ['', [Validators.required]],
-      note: ['', [Validators.required]]
+      note: ['', []],
+      shipping: ['', []],
+      payment: ['', []]
     });
   }
 
@@ -76,6 +78,10 @@ export class OrderComponent implements OnInit{
     });
   }
 
+  removeItemFromCart() {
+    this.cartService.clearCart();
+    this.router.navigate(['/']);
+  }
   calculateTotal() {
     this.totalAmount = this.cartItems.reduce(
       (total, item) => total + item.product.price * item.quantity, 0

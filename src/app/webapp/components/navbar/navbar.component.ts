@@ -40,10 +40,14 @@ export class NavbarComponent implements OnInit{
     if(item === 0) {
       this.router.navigate(['/user-profile']);
     }
+    if(item === 1) {
+      this.router.navigate(['/ordered-list']);
+    }
     else if(item === 2) {
       this.userService.removeUserResponseFromLocalStorage();
       this.tokenService.removeToken();
       this.userResponse = this.userService.getUserResponseFromLocalStorage();
+      this.router.navigate(['/login']);
     }
     this.isPopoverOpen = false;
   }

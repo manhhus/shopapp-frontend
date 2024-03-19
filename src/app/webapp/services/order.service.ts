@@ -31,4 +31,9 @@ export class OrderService {
     getOrderById(orderId:number) {
         return this.htpp.get(`${this.apiOrder}/${orderId}`);
     }
+
+    getOrderedList(userId:number) {
+        return this.htpp.get(`${this.apiOrder}/user/${userId}`);
+    }
+
 }

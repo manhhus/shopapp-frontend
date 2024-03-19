@@ -3,25 +3,23 @@
 <div class="container">
     <form [formGroup]="userForm">
         <div class="row">
-            <div class="col-md-6 form-user">
+            <div class="col-md-6 mx-auto text-center form-user">
                 <h2 class="product-header">User's infomation</h2>
                 <div class="mb-3">
-                    <p class="form-label">Name: {{ fullName }}</p>
+                    <p class="form-label">Name: {{ userResponse?.fullname }}</p>
                 </div>
                 <div class="mb-3">
-                    <p class="form-label">Email: {{ email }}</p>
+                    <p class="form-label">Phone: {{ userResponse?.phone_number }}</p>
                 </div>
                 <div class="mb-3">
-                    <p class="form-label">Phone: {{ phone }}</p>
+                    <p class="form-label">Birthday: {{ userResponse?.date_of_birth }}</p>
                 </div>
                 <div class="mb-3">
-                    <p class="form-label">Birthday: {{ dateOfBirth }}</p>
-                </div>
-                <div class="mb-3">
-                    <p class="form-label">Address: {{ address }}</p>
+                    <p class="form-label">Address: {{ userResponse?.address }}</p>
                 </div>
             </div>
             <div class="col-md-6 mx-auto text-center update-user">
+                <h2 class="product-header">Update User</h2>
                 <div class="mb-3">
                     <label for="fullname" class="form-label">Name:</label>
                     <input type="text" class="form-control" id="fullname" 
@@ -32,22 +30,9 @@
                     Error</div>
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email:</label>
-                    <input type="text" class="form-control" id="email" name="email"
-                    formControlName="email"
-                    [class.is-invalid]="userForm.get('email')?.invalid && userForm.get('email')?.touched">
-                    <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
-                    class="invalid-feedback">
-                    Error</div>
-                </div>
-                <div class="mb-3">
                     <label for="phone" class="form-label">Phone:</label>
-                    <input type="tel" class="form-control" id="phone" name="phone"
-                    formControlName="phone"
-                    [class.is-invalid]="userForm.get('phone')?.invalid && userForm.get('phone')?.touched">
-                    <div *ngIf="userForm.get('phone')?.invalid && userForm.get('phone')?.touched"
-                    class="invalid-feedback">
-                    Error</div>
+                    <input type="tel" class="form-control" id="phone" name="phone" disabled>
+                    
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password:</label>
@@ -66,11 +51,11 @@
                     </div>
                 </div>
                 <div>
-                    <label for="date-of-birth">Date of Birth:</label>
-                    <input type="date" class="form-control" name="date-of-birth" id="date-of-birth"
-                    formControlName="date-of-birt"
-                    [class.is-invalid]="userForm.get('date')?.invalid && userForm.get('date')?.touched">
-                    <div *ngIf="userForm.get('date')?.invalid && userForm.get('date')?.touched"
+                    <label for="date_of_birth">Date of Birth:</label>
+                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
+                    formControlName="date_of_birth"
+                    [class.is-invalid]="userForm.get('date_of_birth')?.invalid && userForm.get('date_of_birth')?.touched">
+                    <div *ngIf="userForm.get('date_of_birth')?.invalid && userForm.get('date_of_birth')?.touched"
                     class="invalid-feedback">
                     Error</div>
                 </div>

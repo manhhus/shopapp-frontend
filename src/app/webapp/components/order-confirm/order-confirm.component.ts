@@ -81,8 +81,13 @@ export class OrderConfirmComponent implements OnInit{
         this.orderResponse.payment_method = response.payment_method;
         this.orderResponse.order_details = response.order_details.map(
           (order_detail: OrderDetail) => {
-            if (!order_detail.product.thumbnail.startsWith(`${enviroment.apiBaseUrl}/products/images/`)) {
-              order_detail.product.thumbnail = `${enviroment.apiBaseUrl}/products/images/${order_detail.product.thumbnail}`
+            if(order_detail.product.thumbnail != null) {
+              if (!order_detail.product.thumbnail.startsWith(`${enviroment.apiBaseUrl}/products/images/`)) {
+                  order_detail.product.thumbnail = `${enviroment.apiBaseUrl}/products/images/${order_detail.product.thumbnail}`;
+              }
+            }
+            else {
+              order_detail.product.thumbnail = `${enviroment.apiBaseUrl}/products/images/notfound.jpg`;
             }
             return order_detail;
           }

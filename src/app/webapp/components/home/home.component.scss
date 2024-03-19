@@ -24,6 +24,8 @@
     border-radius: 15px;
     padding: 20px;
     margin-bottom: 20px;
+    height: 700px;
+    position: relative;
 }
 .product-name {
     cursor: pointer;
@@ -44,7 +46,13 @@
 .product-action {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: auto;
+    position: absolute; /* Đặt vị trí tuyệt đối cho phần tử con */
+    bottom: 0; /* Đặt vị trí ở dưới cùng của phần tử cha */
+    left: 0; /* Đặt vị trí bên trái của phần tử cha */
+    width: 100%; /* Chiều rộng 100% của phần tử cha */
+    text-align: center; /* Căn giữa nút */
+    padding: 10px; 
 }
 .space-button {
     margin-left: 20px;
