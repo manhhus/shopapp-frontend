@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef,Renderer2  } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
 import { ProductService } from '../../services/product.service';
@@ -24,17 +24,35 @@ export class HomeComponent implements OnInit {
   itemsPerPage: number = 9;
   pages: number[] = [];
   totalPages: number = 0;
+  totalPagesInit: number = 0;
   visiblePages: number[] = [];
   keyword: string = "";
   selectedCategoryId: number = 0;
   categories: Category[] = [];
 
   constructor(private productService: ProductService, private categoryService: CategoryService,
-    private router: Router) { }
+    private router: Router,private renderer: Renderer2, private el: ElementRef) { }
 
   ngOnInit() {
     this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
     this.getCategories(1, 100);
+    this.totalPagesInit = this.getTotalPages(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
+  }
+
+  getTotalPages(keyword: string, selectedCategoryId: number, page: number, limit: number):number{
+    this.productService.getTotalPages(keyword, selectedCategoryId, page, limit).subscribe({
+      next: (response: number) => {
+        this.totalPages = response;
+      },
+      complete: () => {
+
+      },
+      error: (error: any) => {
+        console.error('Error fetching total pages', error);
+      }
+    }
+    );
+    return this.totalPages;
   }
 
   getCategories(page: number, limit: number) {
@@ -63,8 +81,14 @@ export class HomeComponent implements OnInit {
             product.url = `${enviroment.apiBaseUrl}/products/images/${product.thumbnail}`;
           });
           this.products = response.products;
-          this.totalPages = response.totalPages;
-          this.visiblePages = this.generateVisiblePageArray(this.currentPage, this.totalPages);
+          if(keyword.length == 0 && selectedCategoryId == 0) {
+            this.visiblePages = this.generateVisiblePageArray(this.currentPage, this.totalPagesInit);
+          } else {
+            this.totalPages = this.getTotalPages(keyword, selectedCategoryId, page, limit);
+            this.visiblePages = this.generateVisiblePageArray(this.currentPage, this.totalPages);
+          }
+          
+          
         },
         complete: () => {
 
@@ -79,8 +103,14 @@ export class HomeComponent implements OnInit {
   onPageChange(page: number) {
     this.currentPage = page;
     this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
+    this.scrollToTop();
   }
-
+  scrollToTop() {
+    const container = this.el.nativeElement.querySelector('#topOfPageContainer');
+    if (container) {
+      container.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    }
+  }
   generateVisiblePageArray(currentPage: number, totalPages: number): number[] {
     const maxVisiblePage = 5;
     const halfVisiblePage = Math.floor(maxVisiblePage / 2);

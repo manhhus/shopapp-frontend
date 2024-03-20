@@ -20,6 +20,14 @@ export class ProductService {
         return this.htpp.get<Product[]>(this.apiGetProducts, {params});
     }
 
+    getTotalPages(keyword: string, selectedCategoryId:number, page:number, limit:number): Observable<number> {
+      const params = new HttpParams()
+                          .set('keyword', keyword)
+                          .set('category_id', selectedCategoryId)
+                          .set('page', page.toString())
+                          .set('limit', limit.toString());
+      return this.htpp.get<number>(`${this.apiGetProducts}/total-page`, {params});
+  }
     getDetailProduct(productId:number) {
       return this.htpp.get(`${enviroment.apiBaseUrl}/products/${productId}`)
     }
