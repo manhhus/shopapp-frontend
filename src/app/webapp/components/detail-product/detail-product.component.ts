@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef,Renderer2  } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
 import { Product } from '../../models/product';
@@ -22,13 +22,15 @@ export class DetailProductComponent implements OnInit {
   currentImageIndex: number = 0;
   productId: number = 0;
   quantity: number = 0;
-  constructor(private productService: ProductService, private cartService: CartService
-    , private route: ActivatedRoute, private router: Router) {
+  showAddToCartMessage: boolean = false;
 
+  constructor(private productService: ProductService, private cartService: CartService
+    , private route: ActivatedRoute, private router: Router, 
+    private renderer: Renderer2, private el: ElementRef) {
   }
 
   ngOnInit() {
-
+    this.scrollToTop();
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       if (idParam !== null) {
@@ -59,6 +61,12 @@ export class DetailProductComponent implements OnInit {
       console.error('error fetching detail');
     }
   }
+  scrollToTop() {
+    const container = this.el.nativeElement.querySelector('#topOfPageContainer');
+    if (container) {
+      container.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    }
+  }
 
   showImage(index: number) {
     if (this.product && this.product.product_images && this.product.product_images.length > 0) {
@@ -86,11 +94,18 @@ export class DetailProductComponent implements OnInit {
 
   addToCart() {
     if (this.product) {
-      this.cartService.addToCart(this.productId, this.quantity);
-      this.quantity = 0;
+      if (this.quantity != 0) {
+        this.cartService.addToCart(this.productId, this.quantity);
+        this.quantity = 0;
+        this.showAddToCartMessage = true;
+        setTimeout(() => {
+          this.showAddToCartMessage = false;
+      }, 2000);
+      }
     } else {
       console.error('product null');
     }
+    
   }
 
   increaseQuantity() {
@@ -104,6 +119,8 @@ export class DetailProductComponent implements OnInit {
   }
 
   byNow() {
+    this.quantity ++;
+    this.addToCart();
     this.router.navigate(['/order']);
   }
 }

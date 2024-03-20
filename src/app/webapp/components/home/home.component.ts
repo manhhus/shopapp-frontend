@@ -7,7 +7,6 @@ import { enviroment } from '../../enviroments/enviroment';
 import { CommonModule } from '@angular/common';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/category';
-import { error } from 'console';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -31,12 +30,13 @@ export class HomeComponent implements OnInit {
   categories: Category[] = [];
 
   constructor(private productService: ProductService, private categoryService: CategoryService,
-    private router: Router,private renderer: Renderer2, private el: ElementRef) { }
+    private router: Router, private renderer: Renderer2, private el: ElementRef) { }
 
   ngOnInit() {
     this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
     this.getCategories(1, 100);
-    this.totalPagesInit = this.getTotalPages(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
+    this.totalPagesInit = this.getTotalPages(this.keyword, this.selectedCategoryId, 
+                                            this.currentPage, this.itemsPerPage);
   }
 
   getTotalPages(keyword: string, selectedCategoryId: number, page: number, limit: number):number{
@@ -131,9 +131,6 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/detail-product', productId]);
   }
 
-  addToCart(productId: number) {
-    this.router.navigate(['/detail-product', productId]);
-  }
   byNow(productId: number) {
     this.router.navigate(['/detail-product', productId]);
   }

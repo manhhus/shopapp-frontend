@@ -2,7 +2,10 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div *ngIf="showAddToCartMessage" class="alert alert-success" role="alert">
+            Added to cart successfully!
+        </div>
+        <div class="col-md-6"> 
             <div id="carouselExam" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div *ngFor="let image of product?.product_images; let i = index" class="carousel-item"
@@ -56,6 +59,7 @@
                 </div>
             </div>
         </div>
+        
     </div>
 </div>
 

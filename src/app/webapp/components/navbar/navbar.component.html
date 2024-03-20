@@ -6,37 +6,38 @@
             <span class="navbar-toggler-icon"></span>
         </button>   
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" (click)="onHome()">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" >
                     <a class="nav-link" (click)="onNotify()">Notify</a>
                 </li>
-                <li class="nav-item">
-                    <ng-container *ngIf="userResponse">
-                      <ng-template #popoverContent>
-                        <div class="popover-list">
-                          <a class="popover-item" (click)="handleItemClick(0)">My account</a>
-                          <a class="popover-item" (click)="handleItemClick(1)">Orders</a>
-                          <a class="popover-item" (click)="handleItemClick(2)">Logout</a>
-                        </div>
-                      </ng-template>
-                      <div [ngbPopover]="popoverContent" popoverTitle="User Actions" triggers="click" placement="bottom">
-                        <a class="nav-link" (click)="togglePopover($event)">{{ userResponse.fullname }}</a>
-                      </div>
-                    </ng-container>
-                    <ng-container *ngIf="!userResponse">
-                      <a class="nav-link" (click)="onLogin()">Login</a>
-                    </ng-container>
-                </li>
+                
                 <li class="nav-item" >
                     <a class="nav-link " (click)="onCart()">
                         <i class="fas fa-shopping-cart"></i>
                         Cart
                     </a>
                 </li>
+                <li class="nav-item" >
+                  <ng-container *ngIf="userResponse">
+                    <ng-template #popoverContent>
+                      <div class="popover-list">
+                        <a class="popover-item" (click)="handleItemClick(0)">My account</a>
+                        <a class="popover-item" (click)="handleItemClick(1)">Orders</a>
+                        <a class="popover-item" (click)="handleItemClick(2)">Logout</a>
+                      </div>
+                    </ng-template>
+                    <div [ngbPopover]="popoverContent" triggers="click" placement="bottom">
+                      <a class="nav-link" (click)="togglePopover($event)">{{ userResponse.fullname }}</a>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="!userResponse">
+                    <a class="nav-link" (click)="onLogin()">Login</a>
+                  </ng-container>
+              </li>
             </ul>
 
         </div>

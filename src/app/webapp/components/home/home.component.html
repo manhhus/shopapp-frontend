@@ -28,8 +28,6 @@
                     <i class="fa-solid fa-star-half-stroke"></i>
                 </div>
                 <div class="product-action">
-                    <button class="btn btn-primary" (click)="addToCart(product.id)">Add to cart</button>
-                    <span class="space-button"></span>
                     <button class="btn btn-success" (click)="byNow(product.id)">Buy now</button>
                 </div>
             </div>
@@ -55,8 +53,8 @@
             <li class="page-item" *ngIf="currentPage < totalPages-1">
                 <a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a>
             </li>
-            <li class="page-item" *ngIf="currentPage < totalPages-1">
-                <a class="page-link" (click)="onPageChange(totalPages-1)">Last</a>
+            <li class="page-item" *ngIf="currentPage < totalPages">
+                <a class="page-link" (click)="onPageChange(totalPages)">Last</a>
             </li>
         </ul>
     </nav>

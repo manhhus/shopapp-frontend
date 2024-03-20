@@ -14,8 +14,11 @@
     display: flex !important;
 }
 
-.nav-item{
-    margin-right: 20px !important;
+.ml-auto {
+    margin-left: auto;
+}
+.right {
+    margin-left: auto !important;
 }
 
 .nav-link{

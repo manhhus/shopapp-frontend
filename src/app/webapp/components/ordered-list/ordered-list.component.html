@@ -1,11 +1,6 @@
 <app-navbar></app-navbar>
 
 <div class="container">
-    <div class="order-thankyou">
-        <h1> Order confirm</h1>
-        <p> Thank you for your order. Below are your order details</p>
-    </div>
-    
     <div *ngFor="let orderResponse of ordered_list ">
         <div *ngIf="orderResponse" class="row">
             <div class="col-md-6">

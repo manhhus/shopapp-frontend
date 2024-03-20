@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
 import { enviroment } from '../../enviroments/enviroment';
@@ -8,7 +8,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OrderResponse } from '../../models/order.response';
 import { OrderService } from '../../services/order.service';
 import { OrderDetail } from '../../models/order.detail';
-import { error } from 'console';
 
 @Component({
   selector: 'app-order-confirm',
