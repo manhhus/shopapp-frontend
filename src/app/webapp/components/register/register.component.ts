@@ -60,7 +60,7 @@ export class RegisterComponent {
     this.userService.register(registerDTO).subscribe(
       {
         next: (reponse: any) => {
-          alert(`Register successfully`);
+          // alert(`Register successfully`);
           this.router.navigate(['/login']);
         },
         complete: () => {

@@ -1,42 +1,45 @@
-.navbar{
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    padding: 10px 20px !important;
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
     background-color: #1f21ce !important;
-    color: #fff !important;
-    font-family: Georgia, 'Times New Roman', Times, serif !important;
-    font-size: 20px !important;
-    font-style: normal !important;
+    color: #fff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif, Bold;
+    font-size: 20px;
+    font-style: normal;
 }
-.navbar-nav{
-    list-style: none !important;
-    display: flex !important;
+
+.navbar-nav {
+    list-style: none;
+    display: flex;
 }
 
 .ml-auto {
     margin-left: auto;
 }
+
 .right {
-    margin-left: auto !important;
+    margin-left: auto;
 }
 
-.nav-link{
-    text-decoration: none !important;
-    color: #fff !important;
-    font-weight: bold !important;
-    transition: color 0.3s ease !important;
+.nav-link {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    transition: color 0.3s ease;
 }
 
-.nav-link:hover{
-    color: #ffcc00 !important;
-    cursor: pointer !important;
+.nav-link:hover {
+    color: #ffcc00;
+    cursor: pointer;
 }
 
 .navbar-brand {
     color: #fff;
-    font-size: 30px !important;
-    margin-left: 20px !important;
+    font-size: 30px;
+    margin-left: 20px;
+    font-weight: 100;
 }
 
 .popover-list {

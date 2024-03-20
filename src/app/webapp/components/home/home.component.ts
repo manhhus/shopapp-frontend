@@ -82,12 +82,11 @@ export class HomeComponent implements OnInit {
           });
           this.products = response.products;
           if(keyword.length == 0 && selectedCategoryId == 0) {
-            this.visiblePages = this.generateVisiblePageArray(this.currentPage, this.totalPagesInit);
+            this.totalPages = this.totalPagesInit;
           } else {
             this.totalPages = this.getTotalPages(keyword, selectedCategoryId, page, limit);
-            this.visiblePages = this.generateVisiblePageArray(this.currentPage, this.totalPages);
           }
-          
+          this.visiblePages = this.generateVisiblePageArray(this.currentPage, this.totalPages);
           
         },
         complete: () => {
