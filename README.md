@@ -1,4 +1,21 @@
 # Shopapp SpringBoot 3 + Angular 17 + Spring Security 6 + MySQL
+Displays:
+Register:
+![image](https://github.com/manhhus/shopapp-frontend/assets/87703798/22d52b26-55eb-4f04-9a86-067a42b2d087)
+Login:
+![image](https://github.com/manhhus/shopapp-frontend/assets/87703798/d38024af-8521-423b-957c-b233347d5b59)
+Home:
+![image](https://github.com/manhhus/shopapp-frontend/assets/87703798/61459628-13ca-4c6b-86eb-b78ff005da67)
+![image](https://github.com/manhhus/shopapp-frontend/assets/87703798/202fd4d9-6f8a-4572-9d22-0460684cdcc1)
+Detail Product:
+![image](https://github.com/manhhus/shopapp-frontend/assets/87703798/f0eeb6ae-976e-4d9a-b12b-9ccd10d7541b)
+Order:
+![image](https://github.com/manhhus/shopapp-frontend/assets/87703798/3a8fa4c7-3dc9-4bb2-996a-c34f66a7b37e)
+Order confirm:
+![image](https://github.com/manhhus/shopapp-frontend/assets/87703798/e25fabb4-061f-4238-be64-a1de9e17f782)
+Ordered list:
+![image](https://github.com/manhhus/shopapp-frontend/assets/87703798/6aae185c-ccf1-4d4a-b281-a04bf5b00f7d)
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.3.
 
