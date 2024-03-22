@@ -42,6 +42,7 @@ export class OrderComponent implements OnInit {
   constructor(private cartService: CartService, private productService: ProductService
     , private orderService: OrderService, private router: Router, private formBuilder: FormBuilder
     , private tokenService: TokenService) {
+      
     this.orderForm = this.formBuilder.group({
       fullname: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.minLength(6)]],
@@ -78,9 +79,11 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  removeItemFromCart() {
-    this.cartService.clearCart();
-    this.router.navigate(['/']);
+  removeItemFromCart(productId:number) {
+    this.cartService.removeItemFromCart(productId);
+    this.ngOnInit()
+    this.calculateTotal();
+
   }
   calculateTotal() {
     this.totalAmount = this.cartItems.reduce(

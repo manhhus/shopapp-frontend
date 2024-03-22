@@ -25,7 +25,14 @@ export class CartService implements OnInit{
         }
         this.saveCartToLocalStorage();
     }
-
+    removeItemFromCart(productId:number){
+        if(this.cart.has(productId)) {
+            this.cart.delete(productId)
+        } else {
+            console.error.apply('not found item to delete');
+        }
+        this.saveCartToLocalStorage();
+    }
     getCart(): Map<number, number> {
         return this.cart;
     }

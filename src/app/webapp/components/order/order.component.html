@@ -101,11 +101,11 @@
                             <td>{{ item.quantity }}</td>
                             <td>{{ item.product.price }}$</td>
                             <td>{{ item.product.price * item.quantity }}$</td>
+                            <td><button class="btn btn-primary btn-remove" (click)="removeItemFromCart(item.product.id)">X</button></td>
                         </tr>
                     </ng-container>
                 </tbody>
             </table>
-            <button class="btn btn-primary btn-apply" (click)="removeItemFromCart()">Clear Cart</button>
             <div class="input-group mb-3 mt-3 col-6">
                 <input type="text" class="form-control" [(ngModel)]="couponCode" placeholder="Coupon">
                 <div class="input-group-append">

@@ -52,6 +52,8 @@ th,td{
 .btn-apply  {
     background: linear-gradient(to right, rgb(255,64,180), rgb(126,43,237));
     color: white;
-    margin-top: 3px;
     cursor: pointer;
+}
+.btn-remove {
+    text-justify: center !important;
 }
