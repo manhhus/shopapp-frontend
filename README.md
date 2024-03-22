@@ -10,7 +10,7 @@ Home:
 Detail Product:
 ![image](https://github.com/manhhus/shopapp-frontend/assets/87703798/f0eeb6ae-976e-4d9a-b12b-9ccd10d7541b)
 Order:
-![image](https://github.com/manhhus/shopapp-frontend/assets/87703798/3a8fa4c7-3dc9-4bb2-996a-c34f66a7b37e)
+![image](https://github.com/manhhus/shopapp-frontend/assets/87703798/7e404131-d880-4a08-bae2-308256449760)
 Order confirm:
 ![image](https://github.com/manhhus/shopapp-frontend/assets/87703798/e25fabb4-061f-4238-be64-a1de9e17f782)
 Ordered list:
