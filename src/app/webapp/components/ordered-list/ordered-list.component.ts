@@ -57,7 +57,8 @@ export class OrderedListComponent implements OnInit {
               }
               return order_detail;
             }),
-            shipping_address: order.shipping_address
+            shipping_address: order.shipping_address,
+            pay: order.pay
           };
           return orderResponse;
         });

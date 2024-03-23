@@ -32,7 +32,8 @@ export class OrderConfirmComponent implements OnInit {
     shipping_address: '',
     shipping_date: new Date(),
     payment_method: '',
-    order_details: []
+    order_details: [],
+    pay: ''
   }
 
   constructor(private orderService: OrderService, private router: Router,

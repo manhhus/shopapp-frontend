@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TokenService } from '../../services/token.service';
 import { Order } from '../../models/order';
+import { PaymentService } from '../../services/payment.service';
+import { Url } from 'url';
+import { setGlobalVariable } from '../global';
 
 @Component({
   selector: 'app-order',
@@ -34,14 +37,14 @@ export class OrderComponent implements OnInit {
     email: '',
     note: '',
     total_money: 0,
-    shipping_method: 'cod',
-    payment_method: 'express',
+    shipping_method: 'express',
+    payment_method: 'COD',
     cart_items: []
   }
 
   constructor(private cartService: CartService, private productService: ProductService
     , private orderService: OrderService, private router: Router, private formBuilder: FormBuilder
-    , private tokenService: TokenService) {
+    , private tokenService: TokenService, private paymentService: PaymentService) {
       
     this.orderForm = this.formBuilder.group({
       fullname: ['', [Validators.required]],
@@ -103,14 +106,27 @@ export class OrderComponent implements OnInit {
     this.orderData.total_money = this.totalAmount;
     this.orderService.placeOrder(this.orderData).subscribe({
       next: (response: any) => {
-        this.cartService.clearCart()
-        this.router.navigate(['/order-confirm', response.id]);
+        if(this.orderData.payment_method === 'VNPAY') {
+          setGlobalVariable(response.id);
+          this.paymentService.placePayment(response.id).subscribe({
+            next:(url: string) => {
+              window.location.href = url;
+          }, complete: () => {
+            this.cartService.clearCart()
+            this.router.navigate(['/order-confirm', response.id]);
+          }
+          , error:(error:any) => {
+            console.error('Error occurred:', error);
+          }
+        });
+        }
       }, complete: () => {
 
       }, error: (error: any) => {
         console.error('error fetching order');
       }
-    })
+    });
+    
   }
 
 }

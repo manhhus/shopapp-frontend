@@ -11,6 +11,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AuthGuardFn } from './guards/auth.guard';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { OrderedListComponent } from './components/ordered-list/ordered-list.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 const routes: Routes = [
   { path: 'navbar', component: NavbarComponent },
@@ -22,7 +23,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'user-profile', component: UserProfileComponent,canActivate:[AuthGuardFn] },
-  { path: 'ordered-list', component: OrderedListComponent,canActivate:[AuthGuardFn] }
+  { path: 'ordered-list', component: OrderedListComponent,canActivate:[AuthGuardFn] },
+  { path: 'payment', component: PaymentComponent,canActivate:[AuthGuardFn] }
 ];
 
 @NgModule({
