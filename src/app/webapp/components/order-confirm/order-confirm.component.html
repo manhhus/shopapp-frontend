@@ -5,7 +5,9 @@
         <h1> Order confirm</h1>
         <p> Thank you for your order. Below are your order details</p>
     </div>
-    
+    <div *ngIf="showPaymentSuccess" class="alert alert-success" role="alert">
+        Payment successfully!
+    </div>
     <div *ngIf="orderResponse" class="row">
         <div class="col-md-6">
             <h2 class="product-header">Receiver's infomation</h2>
@@ -29,6 +31,9 @@
             </div>
             <div class="mb-3">
                 <p class="form-label">Payment method: {{ orderResponse.payment_method }}</p>
+            </div>
+            <div class="mb-3">
+                <p class="form-label">Pay: {{ orderResponse.pay }}</p>
             </div>
         </div>
         <div class="col-md-6">

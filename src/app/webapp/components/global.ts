@@ -1,9 +1,9 @@
-let globalVariable: number = 0;
+// let globalVariable: number = 0;
 
-export function setGlobalVariable(newValue: number): void {
-    globalVariable = newValue;
-}
+// export function setGlobalVariable(newValue: number): void {
+//     globalVariable = newValue;
+// }
 
-export function getGlobalVariable(): number {
-    return globalVariable;
-}
+// export function getGlobalVariable(): number {
+//     return globalVariable;
+// }

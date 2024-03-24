@@ -15,7 +15,6 @@ import { TokenService } from '../../services/token.service';
 import { Order } from '../../models/order';
 import { PaymentService } from '../../services/payment.service';
 import { Url } from 'url';
-import { setGlobalVariable } from '../global';
 
 @Component({
   selector: 'app-order',
@@ -106,19 +105,21 @@ export class OrderComponent implements OnInit {
     this.orderData.total_money = this.totalAmount;
     this.orderService.placeOrder(this.orderData).subscribe({
       next: (response: any) => {
+        this.cartService.clearCart()
         if(this.orderData.payment_method === 'VNPAY') {
-          setGlobalVariable(response.id);
+          // setGlobalVariable(response.id);
           this.paymentService.placePayment(response.id).subscribe({
             next:(url: string) => {
               window.location.href = url;
           }, complete: () => {
-            this.cartService.clearCart()
-            this.router.navigate(['/order-confirm', response.id]);
+            
           }
           , error:(error:any) => {
             console.error('Error occurred:', error);
           }
         });
+        } else {
+          this.router.navigate(['/order-confirm', response.id]);
         }
       }, complete: () => {
 

@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OrderResponse } from '../../models/order.response';
 import { OrderService } from '../../services/order.service';
 import { OrderDetail } from '../../models/order.detail';
+import { PaymentService } from '../../services/payment.service';
+import { error } from 'console';
 
 @Component({
   selector: 'app-order-confirm',
@@ -35,10 +37,12 @@ export class OrderConfirmComponent implements OnInit {
     order_details: [],
     pay: ''
   }
-
+  responseCode: string;
+  showPaymentSuccess: boolean = false;
+  check: boolean  = false;
   constructor(private orderService: OrderService, private router: Router,
-    private route: ActivatedRoute) {
-
+    private route: ActivatedRoute, private paymentService:PaymentService) {
+      this.responseCode = '';
   }
 
   ngOnInit(): void {
@@ -51,6 +55,26 @@ export class OrderConfirmComponent implements OnInit {
         console.error('Invalid orderId:', idParam);
       }
     });
+    this.route.queryParams.subscribe(params => {
+      this.responseCode = params['vnp_ResponseCode'];
+    });
+    if (this.responseCode === '00') {
+      this.check = true;
+      this.paymentService.setPaid(orderId).subscribe({
+        next: (response:any) => {
+          this.orderResponse.pay = response.pay;
+        },
+        complete: () => {
+
+        }, error: (error:any) => {
+          console.error('error setPaid', error);
+        }
+      });
+      this.showPaymentSuccess = true;
+      setTimeout(() => {
+        this.showPaymentSuccess = false;
+    }, 5000);
+    }
     this.getOrderDetails(orderId);
   }
 
@@ -73,6 +97,9 @@ export class OrderConfirmComponent implements OnInit {
         this.orderResponse.status = response.status;
         this.orderResponse.total_money = response.total_money;
         this.orderResponse.shipping_method = response.shipping_method;
+        if(!this.check){
+          this.orderResponse.pay = response.pay;
+        }
         this.orderResponse.shipping_date = new Date(
           response.shipping_date[0],
           response.shipping_date[1] - 1,
